@@ -1,20 +1,20 @@
 package ks.msx.MusicStore.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.File;
+import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Builder
+@Entity
+@Table(name = "music_db")
 public class MusicE {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +27,11 @@ public class MusicE {
     private String author;
 
     @Column(name = "file")
-    private File file;  //file to download
+    private byte[] file;  //file to download or upload
 
-    //some more fields...
+    @Column(name = "date")
+    private Date date;
+
+    @Column(name = "searchName")
+    private String searchName;
 }
