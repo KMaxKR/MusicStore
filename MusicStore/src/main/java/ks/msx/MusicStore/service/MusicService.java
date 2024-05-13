@@ -4,6 +4,7 @@ import ks.msx.MusicStore.entity.MusicDTO;
 import ks.msx.MusicStore.entity.MusicE;
 import ks.msx.MusicStore.repository.MusicRepository;
 import lombok.AllArgsConstructor;
+import org.aspectj.util.FileUtil;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
@@ -26,10 +27,10 @@ public class MusicService {
     }
 
     public void saveMusic(MusicDTO dto, File file){
-        // file -> byte[]
+        byte[] arr = new byte[100*1024];
         try{
-            FileInputStream inputStream = new FileInputStream(file);
-        }catch (FileNotFoundException e){
+            arr = FileUtil.readAsByteArray(file);
+        }catch (Exception e){
             e.getStackTrace();
         }
         String searchName = searchNameF(dto.getName());
@@ -38,7 +39,7 @@ public class MusicService {
                         .name(dto.getName())
                         .author(dto.getAuthor())
                         .date(new Date())
-                        .file(null)
+                        .file(arr)
                         .searchName(searchName)
                         .build()
         );
