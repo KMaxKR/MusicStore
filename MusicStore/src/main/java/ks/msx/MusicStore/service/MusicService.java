@@ -26,10 +26,13 @@ public class MusicService {
         return musicRepository.getMusicBySearchName(name);
     }
 
-    public void saveMusic(MusicDTO dto, File file){
+    public void saveMusic(MusicDTO dto){
+        if (dto.getName().isBlank() || dto.getName().isEmpty()){
+            throw new RuntimeException("Wrong input");
+        }
         byte[] arr = new byte[100*1024];
         try{
-            arr = FileUtil.readAsByteArray(file);
+            arr = FileUtil.readAsByteArray(dto.getFile());
         }catch (Exception e){
             e.getStackTrace();
         }
